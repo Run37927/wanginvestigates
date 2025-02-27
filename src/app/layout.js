@@ -1,9 +1,9 @@
-import { Mulish, Nunito } from 'next/font/google'
+import { Mulish, Nunito, Bebas_Neue } from 'next/font/google'
 import "./globals.css";
-import Navbar from '@/components/Navbar';
 import { Toaster } from "@/components/ui/sonner"
 import Providers from '@/components/Providers';
 import { cn, constructMetadata } from '@/lib/utils';
+import NextTopLoader from 'nextjs-toploader';
 
 // To add more fonts, go to https://fonts.google.com/variablefonts
 const mulish = Mulish({
@@ -16,15 +16,21 @@ const nunito = Nunito({
   variable: "--font-heading",
 })
 
+const bebas_neue = Bebas_Neue({
+  subsets: ['latin'],
+  variable: "--font-display",
+  weight: ["400"],
+})
+
 export const metadata = constructMetadata();
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className='!scroll-smooth'>
-      <body className={cn('min-h-screen font-heading antialiased', mulish.variable, nunito.variable)}>
+      <body className={cn('min-h-screen font-sans antialiased', mulish.variable, nunito.variable, bebas_neue.variable)}>
+        <NextTopLoader color="#dc2625" showSpinner={false} />
         <Providers>
           <Toaster />
-          <Navbar />
           {children}
         </Providers>
       </body>
