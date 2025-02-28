@@ -1,5 +1,4 @@
-import TechArchitecture from "@/components/TechArchitecture"
-
+import TechArchitecture from "./TechArchitecture"
 function page() {
   return (
     <TechArchitecture />

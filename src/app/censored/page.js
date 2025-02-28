@@ -1,4 +1,4 @@
-import CensoredContent from "@/components/CensoredContent"
+import CensoredContent from "./CensoredContent"
 
 function page() {
   return (

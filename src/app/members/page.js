@@ -1,5 +1,4 @@
-import MembersPage from "@/components/MembersPage"
-
+import MembersPage from "./MembersPage"
 function page() {
   return (
     <MembersPage />

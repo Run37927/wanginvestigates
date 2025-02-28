@@ -88,7 +88,7 @@ function UserAccountNav({ session }) {
                     width={32}
                     height={32}
                     className='w-full h-full object-cover'
-                    src={session?.user?.image || '/placeholder.svg?height=32&width=32'}
+                    src={session?.user?.image || '/default_avatar.png'}
                     alt='profile pic'
                     referrerPolicy='no-referrer'
                 />
