@@ -9,7 +9,7 @@ import { ContentEditor } from "./ContentEditor"
 import { DashboardOverview } from "./DashboardOverview"
 import { ContentManagement } from "./ContentManagement"
 
-export default function DashboardPage() {
+export default function DashboardPage({ session }) {
     const [currentView, setCurrentView] = useState("dashboard")
     const [editingContent, setEditingContent] = useState(false)
     const [selectedContent, setSelectedContent] = useState(null)
@@ -30,7 +30,7 @@ export default function DashboardPage() {
     }
 
     return (
-        <AppShell currentView={currentView} onNavigate={setCurrentView} onCreateContent={handleCreateContent}>
+        <AppShell currentView={currentView} onNavigate={setCurrentView} onCreateContent={handleCreateContent} session={session}>
             {currentView === "dashboard" && <DashboardOverview />}
             {currentView === "content" && !editingContent && (
                 <ContentManagement onEditContent={handleEditContent} onCreateContent={handleCreateContent} />

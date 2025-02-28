@@ -1,8 +1,16 @@
+import { getAuthSession } from "@/lib/auth";
 import DashboardPage from "./DashboardPage";
+import { redirect } from "next/navigation";
 
-function page() {
+async function page() {
+    const session = await getAuthSession();
+
+    if (!session?.user?.id) {
+        return redirect('/');
+    }
+
     return (
-        <DashboardPage />
+        <DashboardPage session={session} />
     )
 }
 

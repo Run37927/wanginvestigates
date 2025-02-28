@@ -13,8 +13,9 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent } from "@/components/ui/sheet"
+import UserAccountNav from "@/components/UserAccountNav"
 
-export function AppShell({ children, currentView, onNavigate, onCreateContent }) {
+export function AppShell({ children, currentView, onNavigate, onCreateContent, session }) {
     const [open, setOpen] = useState(false)
 
     const navigation = [
@@ -139,7 +140,8 @@ export function AppShell({ children, currentView, onNavigate, onCreateContent })
                                 <Bell className="h-5 w-5" />
                                 <span className="sr-only">查看通知</span>
                             </Button>
-                            <DropdownMenu>
+                            <UserAccountNav session={session} />
+                            {/* <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
                                     <Button variant="ghost" size="icon" className="rounded-full">
                                         <img className="h-8 w-8 rounded-full" src="/users/user-1.png" alt="用户头像" />
@@ -162,7 +164,7 @@ export function AppShell({ children, currentView, onNavigate, onCreateContent })
                                         <span>退出登录</span>
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
-                            </DropdownMenu>
+                            </DropdownMenu> */}
                         </div>
                     </div>
                 </div>

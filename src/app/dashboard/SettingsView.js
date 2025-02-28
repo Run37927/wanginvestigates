@@ -71,11 +71,11 @@ export function SettingsView() {
                                 <Label>标准等级</Label>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="standard-monthly">月费（$）</Label>
+                                        <Label htmlFor="standard-monthly">月费&#40;$&#41;</Label>
                                         <Input id="standard-monthly" type="number" defaultValue="10" />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="standard-annual">年费（$）</Label>
+                                        <Label htmlFor="standard-annual">年费&#40;$&#41;</Label>
                                         <Input id="standard-annual" type="number" defaultValue="100" />
                                     </div>
                                 </div>
@@ -85,11 +85,11 @@ export function SettingsView() {
                                 <Label>高级等级</Label>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div className="space-y-2">
-                                        <Label htmlFor="premium-monthly">月费（$）</Label>
+                                        <Label htmlFor="premium-monthly">月费&#40;$&#41;</Label>
                                         <Input id="premium-monthly" type="number" defaultValue="20" />
                                     </div>
                                     <div className="space-y-2">
-                                        <Label htmlFor="premium-annual">年费（$）</Label>
+                                        <Label htmlFor="premium-annual">年费&#40;$&#41;</Label>
                                         <Input id="premium-annual" type="number" defaultValue="200" />
                                     </div>
                                 </div>
