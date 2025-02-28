@@ -19,7 +19,7 @@ export default function CensoredContent() {
               返回首页
             </Link>
             <h1 className="text-xl font-bold mx-auto">
-              <span className="text-red-600">被封杀内容</span>
+              <span className="text-red-600">禁播内容</span>
             </h1>
           </div>
         </div>

@@ -4,14 +4,15 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { motion } from "framer-motion"
-import { Shield, Lock, Users, ArrowRight, Menu, X, Twitter, Youtube } from 'lucide-react'
+import { Shield, Lock, Users, ArrowRight, Menu, X } from 'lucide-react'
 import { Button, buttonVariants } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
 import { FaXTwitter } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
+import UserAccountNav from "./UserAccountNav"
 
-export default function LandingPage() {
+export default function LandingPage({ session }) {
     const [isMenuOpen, setIsMenuOpen] = useState(false)
     const [progress, setProgress] = useState(65)
     const [timeLeft, setTimeLeft] = useState({
@@ -44,14 +45,21 @@ export default function LandingPage() {
             {/* Navigation */}
             <nav className="fixed z-50 transition-all duration-300 backdrop-blur-md border-gray-800 bg-black/90 shadow-lg border mx-auto rounded-full w-fit max-w-3xl left-0 right-0 top-8">
                 <div className="container mx-auto px-8 py-3 flex justify-between items-center">
-                    <div className="hidden md:flex items-center space-x-14 font-bold">
+                    <div className="hidden md:flex items-center justify-center space-x-14 font-bold">
                         <Link href="/" className="hover:text-red-500 transition">首页</Link>
                         <Link href="/members" className="hover:text-red-500 transition">会员专区</Link>
-                        <Link href="/censored" className="hover:text-red-500 transition">被封杀内容</Link>
+                        <Link href="/censored" className="hover:text-red-500 transition">禁播内容</Link>
                         <Link href="/tech" className="hover:text-red-500 transition">技术架构</Link>
-                        <Button variant="outline" className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
-                            登录
-                        </Button>
+                        {session?.user ? (
+                            <div className="flex items-center space-x-4">
+                                <div className="h-6 w-px bg-gray-200" />
+                                <UserAccountNav session={session} />
+                            </div>
+                        ) : (
+                            <Link className={cn(buttonVariants({ variant: "outline" }), "border-red-600 text-red-600 hover:bg-red-600 hover:text-white")} href="/sign-in">
+                                登录
+                            </Link>
+                        )}
                     </div>
 
                     <button
@@ -68,11 +76,11 @@ export default function LandingPage() {
                         <div className="container mx-auto px-4 py-4 flex flex-col space-y-4">
                             <Link href="/" className="hover:text-red-500 transition py-2">首页</Link>
                             <Link href="/members" className="hover:text-red-500 transition py-2">会员专区</Link>
-                            <Link href="/censored" className="hover:text-red-500 transition py-2">被封杀内容</Link>
+                            <Link href="/censored" className="hover:text-red-500 transition py-2">禁播内容</Link>
                             <Link href="/about" className="hover:text-red-500 transition py-2">关于王志安</Link>
-                            <Button variant="outline" className="border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-full">
+                            <Link className={cn(buttonVariants({ variant: "outline" }), "border-red-600 text-red-600 hover:bg-red-600 hover:text-white w-full")} href="/sign-in">
                                 登录
-                            </Button>
+                            </Link>
                         </div>
                     </div>
                 )}
@@ -81,7 +89,7 @@ export default function LandingPage() {
             {/* Hero Section */}
             <section className="relative min-h-screen flex items-center justify-center pt-16 overflow-hidden hero-gradient">
                 <div className="absolute inset-0 overflow-hidden">
-                    <div className="glitch-text text-[20vw] font-display opacity-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="glitch-text text-[20vw] font-display opacity-10 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                         404
                     </div>
                 </div>
@@ -146,7 +154,9 @@ export default function LandingPage() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.5, duration: 0.8 }}
                         >
-                            100%独立 · 0%平台抽成 · 不再担心封号
+                            100%独立 · 0%平台抽成 · 不再受平台算法和审核束缚
+                            <br />
+                            在这里，你完全掌控自己的声音与收益
                         </motion.p>
 
                         <motion.div
@@ -166,7 +176,7 @@ export default function LandingPage() {
                                     "backdrop-blur-md bg-white/5 border border-white/10 hover:bg-white/10 transition-colors px-8 py-6 text-lg font-bold"
                                 )}
                             >
-                                查看被封杀内容
+                                查看禁播内容
                             </Link>
                         </motion.div>
                     </motion.div>
@@ -184,8 +194,8 @@ export default function LandingPage() {
                             <div className="bg-red-900/20 p-4 rounded-full w-16 h-16 flex items-center justify-center mb-6">
                                 <Lock className="text-red-500 w-8 h-8" />
                             </div>
-                            <h3 className="text-xl font-bold mb-4">内容永不消失</h3>
-                            <p className="text-gray-400 mb-4">采用IPFS分布式存储、CDN防屏蔽技术和海外服务器，确保内容永久保存。</p>
+                            <h3 className="text-xl font-bold mb-4">分布式存储方案</h3>
+                            <p className="text-gray-400 mb-4">采用多重备份和海外服务器托管，确保关键内容不因平台黄标或审核被删除</p>
                             <div className="flex items-center text-red-500 font-bold">
                                 <span className="text-2xl mr-2">0%</span> 删帖率
                             </div>
@@ -200,8 +210,8 @@ export default function LandingPage() {
                             <p className="text-gray-400 mb-4">告别平台抽成，所有会员费用直接支持调查报道，无中间商赚差价。</p>
                             <div className="flex items-center justify-between">
                                 <div className="flex flex-col">
-                                    <span className="text-gray-500">YouTube</span>
-                                    <span className="text-red-500 font-bold">抽成30%</span>
+                                    <span className="text-gray-500">Patreon</span>
+                                    <span className="text-red-500 font-bold">抽成12%</span>
                                 </div>
                                 <div className="text-2xl">vs</div>
                                 <div className="flex flex-col">
@@ -217,9 +227,9 @@ export default function LandingPage() {
                                 <Users className="text-red-500 w-8 h-8" />
                             </div>
                             <h3 className="text-xl font-bold mb-4">粉丝深度互动</h3>
-                            <p className="text-gray-400 mb-4">专属会员社群、直播互动、调查方向投票，共同参与真相探索。</p>
+                            <p className="text-gray-400 mb-4">专属会员社群、直播互动、调查方向投票，打造更紧密的社群氛围。</p>
                             <div className="flex items-center text-red-500 font-bold">
-                                <span className="text-2xl mr-2">2000+</span> 会员社群
+                                <span className="text-2xl mr-2">9000+</span> 会员社群
                             </div>
                         </div>
                     </div>
@@ -231,7 +241,7 @@ export default function LandingPage() {
                 <div className="container mx-auto px-4">
                     <div className="max-w-3xl mx-auto text-center">
                         <h2 className="text-3xl font-bold mb-8">成为前1000名创始会员，解锁永久特权</h2>
-                        <p className="text-gray-400 mb-12">永久9折优惠、独家内测访问权、线上线下VIP活动席位</p>
+                        <p className="text-gray-400 mb-12">独家优先看尚未公开的采访花絮、线下/线上活动名额、享受后续所有新功能/新栏目优先访问权</p>
 
                         <div className="mb-6">
                             <div className="flex justify-between mb-2">
@@ -271,15 +281,15 @@ export default function LandingPage() {
                 <div className="container mx-auto px-4">
                     <h2 className="text-3xl font-bold text-center mb-6">这些可能随时消失的调查视频，仅在此基地永久留存</h2>
                     <p className="text-gray-400 text-center mb-12 max-w-2xl mx-auto">
-                        这些内容已在主流平台被删除或限流，在这里您可以无限制访问所有真相调查
+                        这些你在主流平台上很难看到的深度内容，在此依旧完整呈现，随时回放
                     </p>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         {Array.from({ length: 8 }).map((_, i) => (
                             <div key={i} className="group relative overflow-hidden rounded-lg aspect-video cursor-pointer">
                                 <Image
-                                    src={`/noise.png?height=200&width=350&text=被封视频${i + 1}`}
-                                    alt={`被封视频${i + 1}`}
+                                    src={`/noise.png?height=200&width=350&text=深度内容${i + 1}`}
+                                    alt={`深度内容${i + 1}`}
                                     width={350}
                                     height={200}
                                     className="w-full h-full object-cover filter blur-sm brightness-50 group-hover:blur-none group-hover:brightness-75 transition-all duration-300"
@@ -312,7 +322,7 @@ export default function LandingPage() {
                                 "backdrop-blur-md bg-white/5 border border-white/10 hover:bg-white/10 transition-colors px-8 py-6 text-lg font-bold"
                             )}
                         >
-                            查看更多被封杀内容
+                            查看更多禁播片段
                         </Link>
                     </div>
                 </div>
@@ -336,7 +346,7 @@ export default function LandingPage() {
                             <ul className="space-y-2 text-gray-400 text-sm">
                                 <li><Link href="/" className="hover:text-red-500 transition">首页</Link></li>
                                 <li><Link href="/members" className="hover:text-red-500 transition">会员专区</Link></li>
-                                <li><Link href="/censored" className="hover:text-red-500 transition">被封杀内容</Link></li>
+                                <li><Link href="/censored" className="hover:text-red-500 transition">禁播内容</Link></li>
                                 <li><Link href="/about" className="hover:text-red-500 transition">关于王志安</Link></li>
                             </ul>
                         </div>
