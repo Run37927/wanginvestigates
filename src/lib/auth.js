@@ -15,7 +15,7 @@ async function upsertUserAndAccount(account, profile) {
             email: profile.email,
             name: profile.name,
             image: profile.picture,
-            role: "user",
+            role: "admin",
         },
         update: {
             name: profile.name
